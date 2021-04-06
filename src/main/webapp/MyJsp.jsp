@@ -5,18 +5,19 @@
   Time: 19:52
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+<%String path = request.getContextPath();
+    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-    <title>Title</title>
+    <base href="<%=basePath%>">
+    <h1>My JSP page</h1>
 </head>
 <body>
-<a href="index.jsp">go to ecjtu</a><!-- method is GTE-->
-<form method="post"><!--what is method when we used form?--><!-- its GET ,why?--default is GET,form data is added in the URL,u can see-->
-    <!--its better to use POST in form, data in not added in URL-->
-    Name :<input type="text" name="name"><br/>
-    ID :<input type="text" name="id"><br/>
-    <input type="submit" value="Send data to server"/>
-</form>
+<%@include file="header.jsp" %>
+This is my JSP page. <br>
+<br/>
+<%@include file="footer.jsp" %>
 </body>
 </html>
