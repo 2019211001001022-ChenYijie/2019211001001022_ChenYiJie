@@ -15,7 +15,7 @@
 </br >
 <a href="register.jsp">Register JDBC -week4</a>
 </br >
-<a href="index.jsp">include-week5</a>
+<a href="index.jsp">index-week5</a>
 </br >
 <a href="login.jsp">login-week5</a>
 </br >

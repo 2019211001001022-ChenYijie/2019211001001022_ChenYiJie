@@ -13,11 +13,11 @@
                             padding:0px;
                             margin:0px;" valign="bottom">
 
-            <img src="${pageContext.request.contextPath}/logo.jpg" align="left">
+            <img src="logo.jpg" align="left">
         </td>
     </tr>
     <tr>
-        <td height="15" style="color:white;
+        <td height="20" style="color:white;
                             background-color:#444444;
                             border-width:2px;
                             border-style:solid;
@@ -25,7 +25,6 @@
                             border-color:black;" align="center">
             <a style="color:white;" href="index.jsp">Home</a>
             - <a style="color:white;" href="login.jsp">Login</a>
-            - <a style="color:white;" href="productList">Product</a>
             - <a style="color:white;" href="#">FAQ</a>
             - <a style="color:white;" href="#">About</a>
 

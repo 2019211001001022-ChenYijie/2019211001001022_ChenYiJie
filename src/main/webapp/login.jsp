@@ -7,10 +7,10 @@
 --%>
 <%@include file="header.jsp" %>
 Login <br>
-<form method="post" action="${pageContext.request.contextPath}/login">
+<form method="post" action="/login">
     <p>Username:<input type="text" name="name"/></p>
 
     <p>Password:<input type="password" name="password"/></p>
-    <input type="submit" value="Login"/>
+    <input type="submit" value="login"/>
 </form>
 <%@include file="footer.jsp" %>

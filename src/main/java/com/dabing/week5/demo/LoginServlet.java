@@ -1,5 +1,4 @@
 package com.dabing.week5.demo;
-
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -25,22 +24,22 @@ public class LoginServlet extends HttpServlet {
     @Override
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String name = request.getParameter("name");
+        String username = request.getParameter("username");
         String password= request.getParameter("password");
-        System.out.println(name + password);
+        System.out.println(username + password);
         PrintWriter writer = response.getWriter();
         try {
             if( dbConn != null){
 
 
-                String sql = "SELECT * FROM usertable WHERE name=? AND password=?;";
+                String sql = "SELECT * FROM usertable WHERE username=? AND password=?;";
                 PreparedStatement ps = dbConn.prepareStatement(sql);
-                ps.setString(1,name);
+                ps.setString(1,username);
                 ps.setString(2,password);
                 ResultSet rs = ps.executeQuery();
                 if(rs.next()){
                     writer.println("Login Success!!!");
-                    writer.println("Welcome "+name+".");
+                    writer.println("Welcome "+username+".");
                 }else{
                     writer.print("Username or Password Error!!!");
                 }
