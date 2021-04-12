@@ -18,7 +18,7 @@ This is Count JSP page.<br>
 }%>
 <%! int count=0;%>
 <!-- The page count is now : <%//out.println(++count);%><br/>-->
-The page count is now(using count()):  <%out.println(getCount());%>
+The page count is now(using count()):  <%//out.println(getCount());%>
 </body>
 </html>
 
