@@ -32,15 +32,48 @@ public class UserDao  implements  IUserDao{
 
     @Override
     public int updateUser(Connection con, User user) throws SQLException {
-        String sql = "update usertable set name = ?,password = ?, email = ?, gender = ?, birth = ? where id = ?";
-        return qr.update(con,sql,new Object[]{user.getUsername(),user.getPassword(),user.getEmail(),user.getGender(),user.getBirthdate(),user.getID()});
+        String sql = "update usertable set name = ?,password = ?, email = ?, gender = ?, birthdate = ? where id = ?;";
+        PreparedStatement st= con.prepareStatement(sql);
+        st.setString(1,user.getUsername());
+        st.setString(2,user.getPassword());
+        st.setString(3,user.getEmail());
+        st.setString(4,user.getGender());
+        st.setString(5, String.valueOf(user.getBirthdate()));
+        st.setInt(6,user.getID());
+
+        int i = st.executeUpdate();
+        if(i != 0){
+            return  1;
+        }else {
+            return  0;
+        }
+//        String sql = "update usertable set name = ?,password = ?, email = ?, gender = ?, birthdate = ? where id = ?";
+//        return qr.update(con,sql,new Object[]{user.getUsername(),user.getPassword(),user.getEmail(),user.getGender(),user.getBirthdate(),user.getID()});
     }
 
 
     @Override
     public User findById(Connection con, Integer id) throws SQLException {
-        String sql = "select * from usertable where id =  " + id;
-        return  qr.query(con,sql,new BeanHandler<>(User.class));
+        String sql = "SELECT * FROM usertable WHERE id = ?;";
+        PreparedStatement st= con.prepareStatement(sql);
+        st.setInt(1,id);
+
+        ResultSet rs=st.executeQuery();
+        User user=null;
+        if(rs.next()){
+            user=new User();
+            user.setID(rs.getInt("id"));
+            user.setUsername(rs.getString("name"));
+            user.setBirthdate(rs.getDate("birthdate"));
+            user.setPassword(rs.getString("password"));
+            user.setEmail(rs.getString("email"));
+            user.setGender(rs.getString("gender"));
+            return user;
+        }else {
+            return  null;
+        }
+//        String sql = "select * from usertable where id =  " + id;
+//        return  qr.query(con,sql,new BeanHandler<>(User.class));
     }
 
     @Override
