@@ -5,8 +5,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 @WebServlet(name = "RegisterServlet", value = "/register")
 public class RegisterServlet extends HttpServlet {
@@ -32,7 +33,7 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response);
+        request.getRequestDispatcher("WEB-INF/views/register.jsp").forward(request,response);
     }
 
     @Override
@@ -41,7 +42,7 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("password");
         String email = request.getParameter("email");
         String gender = request.getParameter("gender");
-        String birthdate = request.getParameter("birthdate");
+        String birthdate = request.getParameter("birthDate");
 
 
 
@@ -54,9 +55,9 @@ public class RegisterServlet extends HttpServlet {
             int n = st.executeUpdate(sql);
             System.out.println("n-->" + n);
 
-            sql = "select * from usertable";
-            ResultSet rs = st.executeQuery(sql);
-            PrintWriter printWriter = response.getWriter();
+            //sql = "select * from usertable";
+            //ResultSet rs = st.executeQuery(sql);
+            //PrintWriter printWriter = response.getWriter();
 
                 /*printWriter.println("<html>");
             printWriter.println("<head>");
@@ -72,10 +73,11 @@ public class RegisterServlet extends HttpServlet {
             printWriter.println("<br/></body>");
             printWriter.println("</html>");*/
             /*request.setAttribute("rsname",rs);
-            request.getRequestDispatcher("userList.jsp").forward(request,response);*/
+            //request.getRequestDispatcher("userList.jsp").forward(request,response);*/
 
-            response.sendRedirect("login.jsp");
-
+            //response.sendRedirect("login.jsp");
+//week-9
+            response.sendRedirect("login");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
