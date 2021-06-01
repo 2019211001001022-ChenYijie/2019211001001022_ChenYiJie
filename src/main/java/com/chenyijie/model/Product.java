@@ -4,12 +4,14 @@ import java.io.InputStream;
 
 public class Product {
 
+    public Product quantity;
     private int productId;
     private String productName;
     private String productDescription;
     private InputStream picture;
     private Double price;
     private int categoryId;
+    private String productDescrisption;
 
     public Product(){
 
@@ -81,6 +83,10 @@ public class Product {
                 ", price=" + price +
                 ", categoryId=" + categoryId +
                 '}';
+    }
+
+    public void setProductDescrisption(String productDescrisption) {
+        this.productDescrisption = productDescrisption;
     }
 }
 

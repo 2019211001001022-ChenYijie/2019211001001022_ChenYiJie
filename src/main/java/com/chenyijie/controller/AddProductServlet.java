@@ -1,6 +1,8 @@
 package com.chenyijie.controller;
 
 import com.chenyijie.dao.ProductDao;
+import com.chenyijie.model.Category;
+import com.chenyijie.model.Product;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -8,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -20,7 +23,7 @@ import java.util.logging.Logger;
 @MultipartConfig(maxFileSize = 16177215)
 public class AddProductServlet extends HttpServlet {
     private Connection con = null;
-    private static final Logger Log = Logger.getLogger(AddProductServlet.class);
+    private static final Logger Log = Logger.getLogger(String.valueOf(AddProductServlet.class));
 
     public void destroy() {
         super.destroy();
@@ -31,7 +34,7 @@ public class AddProductServlet extends HttpServlet {
         List<Locale.Category> categoryList = category.findAllCategory(con);
         request.setAttribute("categoryList", categoryList);
         String path = "/WEB-INF/views/admin.addproduct.jsp";
-        request.getRequestDispatcher(path).forword(request, response);
+        request.getRequestDispatcher(path).forward(request, response);
     } catch(SQLException throwables){
         throwables.printStackTrace();
     }
