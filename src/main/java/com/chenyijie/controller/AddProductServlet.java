@@ -16,7 +16,6 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Locale;
 import java.util.logging.Logger;
 
 @WebServlet(name = "AddProductServlet", value = "/admin/AddProduct")
@@ -31,14 +30,14 @@ public class AddProductServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Category category = new Category();
-        List<Locale.Category> categoryList = category.findAllCategory(con);
+        List<Category> categoryList = category.findAllCategory(con);
         request.setAttribute("categoryList", categoryList);
         String path = "/WEB-INF/views/admin.addproduct.jsp";
         request.getRequestDispatcher(path).forward(request, response);
     } catch(SQLException throwables){
         throwables.printStackTrace();
     }
-}
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String productName = request.getParameter("productName");
