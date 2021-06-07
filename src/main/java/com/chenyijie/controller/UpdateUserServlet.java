@@ -28,7 +28,7 @@ public class UpdateUserServlet extends HttpServlet {
         try {
             User userInfo = iUserDao.findById(con, id);
             request.setAttribute("userInfo",userInfo);
-            request.getRequestDispatcher("WEB-INF/views/updateUesr.jsp").forward(request, response);
+            request.getRequestDispatcher("accountDetails").forward(request, response);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
