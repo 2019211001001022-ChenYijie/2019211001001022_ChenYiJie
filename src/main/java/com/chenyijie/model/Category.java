@@ -66,21 +66,28 @@ public class Category implements java.io.Serializable{
                 '}';
     }
 
-   public  List<Category> findAllCategory(Connection con){
+   public static List<Category> findAllCategory(Connection con) throws SQLException {
         List<Category> list=new ArrayList<Category>();
+       String sql = "select *from Category";
         PreparedStatement pt=con.prepareStatement(sql);
-        String sql = "select *from Category";
-        ResultSet rs=pt.executeQuery();
-            while (rs.next()){
-                Category c =new Category();
-                c.setCategoryId(rs.getInt("categoryid"));
-                c.setCategoryName(rs.getString("categoryname"));
-                c.setDescription(rs.getString("description"));
-                list.add(c);
-            }
-            return list;
+
+       ResultSet rs= null;
+       try {
+           rs = pt.executeQuery();
+           while (rs.next()){
+               Category c =new Category();
+               c.setCategoryId(rs.getInt("categoryid"));
+               c.setCategoryName(rs.getString("categoryname"));
+               c.setDescription(rs.getString("description"));
+               list.add(c);
+           }
+
+       } catch (SQLException throwables) {
+           throwables.printStackTrace();
+       }
+       return list;
         }
- public static String findByCategoryId(Connection con,int categoryId){
+ public static String findByCategoryId(Connection con,int categoryId) throws SQLException {
         String sql="select * from Category where categoryId=?";
         PreparedStatement pt=con.prepareStatement(sql);
         pt.setInt(1,categoryId);

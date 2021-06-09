@@ -4,11 +4,9 @@ import com.chenyijie.dao.ProductDao;
 import com.chenyijie.model.Category;
 import com.chenyijie.model.Product;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -17,34 +15,50 @@ import java.util.List;
 @WebServlet(name = "ShopServlet", value = "/shop")
 public class ShopServlet extends HttpServlet {
     Connection con=null;
+
     @Override
-    public void init() throws ServletException{
+    public void init() throws ServletException {
         super.init();
         con=(Connection) getServletContext().getAttribute("con");
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Category category = new Category();
-        List<Category> categoryList = category.findAllCategory(con);
-        request.setAttribute("categoryList", categoryList);
 
-        ProductDao productDao = new ProductDao();
-        List<Product> productList = null;
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        //set all category into request
+        Category category=new Category();
         try {
-            if (request.getParameter("categoryId") == null) {
-              List<Product> productList = productDao.findAll(con);
-            } else {
-                int categoryId = Interger.parseInt(request.getParameter("categoryId"));
-               List<Product> productList = productDao.findByCategoryId(categoryId.con);
+            List<Category> categoryList=category.findAllCategory(con);//static
+            request.setAttribute("categoryList",categoryList);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        //set all product into request
+        ProductDao productDao=new ProductDao();
+        try {
+            if(request.getParameter("categoryId")==null) {
+                //show all product
+                List<Product> productList = productDao.findAll(con);
+                request.setAttribute("productList", productList);
+            }else {
+                //show only one type of product
+                int catId=Integer.parseInt(request.getParameter("categoryId"));
+                List<Product> productList = productDao.findByCategoryId(catId,con);
+                request.setAttribute("productList", productList);
+
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        request.setAttribute("productList", productList);
-        String path = "/WEB-INF/views/shop.jsp";
-        request.getRequestDispatcher(path).forward(request, response);
+        //forward
+        String path="/WEB-INF/views/shop.jsp";
+        request.getRequestDispatcher(path).forward(request,response);
+
+
     }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

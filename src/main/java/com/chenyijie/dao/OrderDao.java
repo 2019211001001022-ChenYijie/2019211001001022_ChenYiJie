@@ -1,25 +1,12 @@
 
 package com.chenyijie.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import com.chenyijie.model.Order;
+import com.chenyijie.model.Item;
+import com.chenyijie.model.Product;
 
-import org.apache.log4j.Logger;
-
-import com.dabing.model.Item;
-import com.dabing.model.Order;
-
-import com.dabing.model.Product;
+import java.sql.*;
+import java.util.*;
 
 /**
  * A data access object (DAO) providing persistence and search support for Order
@@ -34,7 +21,7 @@ import com.dabing.model.Product;
 public class OrderDao implements IOrderDao {
 
 	@Override 
-	public int save(Connection con,Order order) throws SQLException {
+	public int save(Connection con, Order order) throws SQLException {
 		int flag=0;
 		try {
 			//By default,committed right after it is executed,disable the auto commit mode to enable two or more statements to be grouped into a transaction// begin the transaction:
@@ -58,7 +45,7 @@ public class OrderDao implements IOrderDao {
 			st.setString(12, order.getPhone());
 			st.setString(13, order.getNotes());
 			st.setDouble(14, order.getOrderTotal());
-			flag = st.executeUpdate();、、
+			flag = st.executeUpdate();
 			
 			//get newly inserted OrderId
 				String lastId="SELECT max(orderid) as orderId from [dbo].[order] ";//"SELECT max(orderid) as orderId from userdb.order"; for mysql
@@ -234,7 +221,7 @@ public class OrderDao implements IOrderDao {
 	}
 	
 @Override
-	public List<Item> findItemsByOrderId(Connection con,int orderId) {
+	public List<Item> findItemsByOrderId(Connection con, int orderId) {
 		List<Item> itemList=new ArrayList<Item>();
 		try {
 			String sql="SELECT 	* FROM orderdetail AS o INNER JOIN product AS p ON o.ProductId=p.ProductId WHERE o.OrderID="+orderId;

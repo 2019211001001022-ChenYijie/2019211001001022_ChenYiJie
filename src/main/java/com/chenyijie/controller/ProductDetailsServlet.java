@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet(name = "ProductDetailsServlet", value = "/ProductDetailsServlet")
@@ -27,14 +28,20 @@ public class ProductDetailsServlet extends HttpServlet {
         if(id==0){
             return;
         }
-        List<Category> categoryList=Category.findAllCategory(con);
-        request.setAttribute("categoryList",categoryList);
+        List<Category> categoryList= null;
+        try {
+            categoryList = Category.findAllCategory(con);
+            request.setAttribute("categoryList",categoryList);
 
-        Product product= productDao.findById(id,con);
+            Product product= productDao.findById(id,con);
 
-        request.setAttribute("p",product);
-        String path="/WEB-INF/views/productDetails.jsp";
-        request.getRequestDispatcher(path).forward(request,response);
+            request.setAttribute("p",product);
+            String path="/WEB-INF/views/productDetails.jsp";
+            request.getRequestDispatcher(path).forward(request,response);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
     }
 
     @Override

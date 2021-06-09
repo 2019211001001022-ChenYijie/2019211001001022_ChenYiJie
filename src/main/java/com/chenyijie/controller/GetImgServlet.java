@@ -31,7 +31,7 @@ public class GetImgServlet extends HttpServlet {
             imgByte = productDao.getPictureById(id,con);
             if (imgByte!=null){
                 response.setContentType("image/gif");
-                OutputStream os=response.getOutputStream();
+                OutputStream out=response.getOutputStream();
                 out.write(imgByte);
                 out.flush();
                 //os.close();

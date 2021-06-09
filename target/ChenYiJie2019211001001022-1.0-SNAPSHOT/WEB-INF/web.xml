@@ -30,7 +30,7 @@
     </context-param>
     <context-param>
         <param-name>url</param-name>
-        <param-value>jdbc:sqlserver://localhost:1433;DatabaseName=userjmy</param-value>
+        <param-value>jdbc:sqlserver://localhost:1433;DatabaseName=userdb</param-value>
     </context-param>
     <context-param>
         <param-name>Username</param-name>
@@ -80,4 +80,32 @@
 
     </welcome-file-list>
 
+<!--chain of filters -->
+    <!-- 1st -->
+    <filter>
+        <filter-name>HelloFilter</filter-name>
+        <filter-class>com.chenyijie.filter.HelloFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>HelloFilter</filter-name>
+        <url-pattern>/hello</url-pattern>
+    </filter-mapping>
+    <!-- 2nd -write after 1st one in web.xml -->
+    <filter>
+        <filter-name>LoggerFilter</filter-name>
+        <filter-class>com.chenyijie.filter.LoggerFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoggerFilter</filter-name>
+        <url-pattern>/hello</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>com.chenyijie.filter.AuthFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/hello</url-pattern>
+    </filter-mapping>
 </web-app>

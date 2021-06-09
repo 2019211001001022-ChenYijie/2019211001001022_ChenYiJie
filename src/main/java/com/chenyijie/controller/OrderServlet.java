@@ -31,7 +31,7 @@ public class OrderServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     List<Payment> paymentTypeList= Payment.findAllPayment(con);
-    request.setAttribute("paymentTypeList",paymentList);
+    request.setAttribute("paymentTypeList",paymentTypeList);
     String path="/WEB-INF/views/order.jsp";
     request.getRequestDispatcher(path).forward(request,response);
     }//end doGet
@@ -88,7 +88,7 @@ public class OrderServlet extends HttpServlet {
         OrderDao dao=new OrderDao();
         int n=0;
         try{
-            n=dao.save(con,0);
+            n=dao.save(con,o);
         }catch (SQLException throwables){
             throwables.printStackTrace();
         }

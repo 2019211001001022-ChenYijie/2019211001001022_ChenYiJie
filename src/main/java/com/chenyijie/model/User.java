@@ -25,7 +25,7 @@ public class User {
     public int getID() {
         return id;
     }
-    public void setID(int id) {
+    public void setId(int id) {
         this.id = id;
     }
     public String getUsername() {
@@ -52,10 +52,10 @@ public class User {
     public void setGender(String gender) {
         this.gender = gender;
     }
-    public Date getBirthdate() {
+    public Date getBirthDate() {
         return birthdate;
     }
-    public void setBirthdate(Date birthdate) {
+    public void setBirthDate(Date birthdate) {
         this.birthdate = birthdate;
     }
 

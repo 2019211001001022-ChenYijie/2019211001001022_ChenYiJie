@@ -30,12 +30,15 @@ public class AddProductServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Category category = new Category();
-        List<Category> categoryList = category.findAllCategory(con);
+        List<Category> categoryList = null;
+        try {
+            categoryList = category.findAllCategory(con);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         request.setAttribute("categoryList", categoryList);
         String path = "/WEB-INF/views/admin.addproduct.jsp";
         request.getRequestDispatcher(path).forward(request, response);
-    } catch(SQLException throwables){
-        throwables.printStackTrace();
     }
 
     @Override
@@ -48,13 +51,13 @@ public class AddProductServlet extends HttpServlet {
         Part filePart = request.getPart("picture");
         if (filePart != null) {
             System.out.println("file name :" + filePart.getSize() + "file type" + filePart.getContentType());
-            inputStream = filePart.getInputSteam();
+            inputStream = filePart.getInputStream();
         }
     Product product = new Product();
            product.setProductName(productName);
            product.setPrice(price);
            product.setProductDescrisption(productDescription);
-           product.setCategory(categoryId);
+           product.setCategoryId(CategoryId);
 ProductDao productDao=new ProductDao();
 try{
     int n=productDao.save(product,con);

@@ -1,11 +1,11 @@
 package com.chenyijie.dao;
 
+import com.chenyijie.model.Item;
+import com.chenyijie.model.Order;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
-
-import com.dabing.model.Item;
-import com.dabing.model.Order;
 
 public interface IOrderDao {
 
@@ -15,8 +15,6 @@ public interface IOrderDao {
 	 * @param order
 	 * @return int
 	 */
-	int save(Connection con, Order order) throws SQLException;
-
 	/**
 	 * Delete a Order 
 	 * @param con
@@ -33,7 +31,10 @@ public interface IOrderDao {
 	 */
 	int update(Connection con, Order order);
 
-	/**
+    int save(Connection con, Order order) throws SQLException//end save
+    ;
+
+    /**
 	 *Select a Order by orderId
 	 * @param con
 	 * @param id

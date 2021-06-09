@@ -83,7 +83,7 @@
 <!--chain of filters -->
     <!-- 1st -->
     <filter>
-        <filter-name>HelloServlet</filter-name>
+        <filter-name>HelloFilter</filter-name>
         <filter-class>com.chenyijie.filter.HelloFilter</filter-class>
     </filter>
     <filter-mapping>

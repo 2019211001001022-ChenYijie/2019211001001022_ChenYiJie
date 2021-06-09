@@ -71,7 +71,7 @@ public class CartServlet extends HttpServlet {
      if(session.getAttribute("cart")==null){
          List<Item> cart=new ArrayList<Item>();
          Product p= productDao.findById(id,con);
-         cart.add(new Item(p.quantity));
+         cart.add(new Item(p,quantity));
          session.setAttribute("cart",cart);
          }else {
          List<Item> cart=(List<Item>) session.getAttribute("cart");
@@ -97,7 +97,7 @@ public class CartServlet extends HttpServlet {
         return -1;
     }
 
-    private void displayCart(HttpServletRequest request, HttpServletResponse response) {
+    private void displayCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     request.setAttribute("message","Your Cart");
     String path="/WEB-INF/views/cart.jsp";
     request.getRequestDispatcher(path).forward(request,response);
