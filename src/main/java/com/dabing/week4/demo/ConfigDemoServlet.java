@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
 
 @WebServlet(name="ConfigDemoServlet",urlPatterns="/jdbc",initParams={
         @WebInitParam(name="name",value="ChenYiJie"),

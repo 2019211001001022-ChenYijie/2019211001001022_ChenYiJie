@@ -13,7 +13,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("AccountDetails")
+@WebServlet(name = "AccountDetails", value = "/AccountDetails")
 public class AccountDetailsServlet extends HttpServlet {
     private Connection con=null;
     @Override
